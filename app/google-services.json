@@ -1,0 +1,127 @@
+{
+  "project_info": {
+    "project_number": "1029309880305",
+    "firebase_url": "https://trytoworkwithfirebase.firebaseio.com",
+    "project_id": "trytoworkwithfirebase",
+    "storage_bucket": "trytoworkwithfirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029309880305:android:2a6d6319e9be0017a8d650",
+        "android_client_info": {
+          "package_name": "com.example.vital.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1029309880305-bme359vrq6e4i4m35bm8p19r010b6dq8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm0OKKvNlBQOl0ATXhbV3-sIx5pZtU62w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029309880305-bme359vrq6e4i4m35bm8p19r010b6dq8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029309880305:android:29a9d1d30e8cd068a8d650",
+        "android_client_info": {
+          "package_name": "com.example.vital.myapplication555"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1029309880305-bme359vrq6e4i4m35bm8p19r010b6dq8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm0OKKvNlBQOl0ATXhbV3-sIx5pZtU62w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029309880305-bme359vrq6e4i4m35bm8p19r010b6dq8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029309880305:android:a031eb7e30f5b86aa8d650",
+        "android_client_info": {
+          "package_name": "com.example.vital.secretsanta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1029309880305-bme359vrq6e4i4m35bm8p19r010b6dq8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm0OKKvNlBQOl0ATXhbV3-sIx5pZtU62w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029309880305-bme359vrq6e4i4m35bm8p19r010b6dq8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029309880305:android:5f9a461077f58189a8d650",
+        "android_client_info": {
+          "package_name": "com.example.vital.trysecretsantareg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1029309880305-bme359vrq6e4i4m35bm8p19r010b6dq8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm0OKKvNlBQOl0ATXhbV3-sIx5pZtU62w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029309880305-bme359vrq6e4i4m35bm8p19r010b6dq8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

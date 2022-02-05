@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">SecretSanta</string>
+    <string name="action_settings">Знайти друга за e-mail</string>
+    <!-- Strings id code-->
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="googlesignin">Sign in with Google</string>
+    <string name="google_sign_out">Google Sign Out</string>
+    <string name="usericon">UserIcon</string>
+    <string name="createBoxName">Введіть назву коробки для жеребкування</string>
+    <string name="createNewBox">Створити нову коробку</string>
+    <string name="frFirstMsg">Коробки, в які вас включено</string>
+    <string name="connectToRoomButton">Приєднатись</string>
+    <string name="idRoomInput">Введіть ID кімнати</string>
+    <string name="buttonforsigninwithgoogle">buttonForSignInWithGoogle</string>
+    <string name="BoxNameInActInBox">Назва коробки</string>
+    <string name="backbuttoninbox">backButtonInBox</string>
+    <string name="inputEmail">Введіть e-mail/nick користувача</string>
+    <string name="findUserByEmail">Пошук користувача за E-mail/NickName</string>
+    <string name="resultactfriends">resultActFriends</string>
+    <string name="addToFriendButton">Надіслати заявку</string>
+    <string name="myFriends">Заявки до друзів</string>
+    <string name="FriendRequestTextView">Запити в друзі:</string>
+    <string name="myprofile">Мій профіль</string>
+    <string name="nickname">Введіть бажаний Nick Name</string>
+    <string name="usernameMyProfile">UserName</string>
+    <string name="username_nueremailShow">E-mail:</string>
+    <string name="nicknameShow">Nickname</string>
+    <string name="nicknameButton">Змінити/Встановити NickName</string>
+    <string name="imagetonmyprofile">ImagetOnMyProfile</string>
+    <string name="yourFriends">Ваші друзі:</string>
+    <string name="addfriendtoboxbutton">addFriendToBoxButton</string>
+</resources>
