@@ -85,11 +85,8 @@ String isFromInBox, idOfBox;
                 if (documentSnapshot.getData().get("AskToFriends") != null){
                     makeIdList(documentSnapshot);
                 }
-                else if(documentSnapshot.getData().get("AskToFriends") == null ||
-                        Objects.requireNonNull(documentSnapshot.getData().get("AskToFriends")).toString().isEmpty()){
-                    friendRequestTextView.setText("Запити в друзі: \nЗапитів немає");
-                }
-                else {
+                else if(documentSnapshot.getData().get("AskToFriends") == null
+                        || Objects.requireNonNull(documentSnapshot.getData().get("AskToFriends")).toString().isEmpty()){
                     friendRequestTextView.setText("Запити в друзі: \nЗапитів немає");
                 }
             }
@@ -116,7 +113,7 @@ String isFromInBox, idOfBox;
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                               findElementInLocalArr(document.getId(), document.getData().get("DisplayName").toString());
+                               fillNameArrById(document.getId(), document.getData().get("DisplayName").toString());
                             }
                             showRequestFriendsList();
                         } else {
@@ -125,7 +122,7 @@ String isFromInBox, idOfBox;
                     }
                 });
     }
-    void findElementInLocalArr(String forCheck, String displayName){
+    void fillNameArrById(String forCheck, String displayName){
         for (int i = 0; i < friendsRequestID.length ; i++) {
             if (forCheck.equals(friendsRequestID[i])){
                 setFriendRequestNames(displayName, i);
@@ -273,7 +270,7 @@ String isFromInBox, idOfBox;
         else if(item.getTitle().equals("Відхилити заявку")){
             makeText("Видаляємо заявку: " + friendRequestNames[info.position]);
             RequestToFriends requestToFriends = new RequestToFriends();
-            requestToFriends.delUserFromFriendsRequest(auth.getCurrentUser().getUid(), friendsRequestID[info.position]);
+            requestToFriends.deleteUserFromFriendsRequest(auth.getCurrentUser().getUid(), friendsRequestID[info.position]);
             refresh();
         }
         return super.onContextItemSelected(item);

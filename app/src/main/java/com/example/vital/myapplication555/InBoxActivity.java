@@ -61,7 +61,7 @@ public class InBoxActivity extends AppCompatActivity {
         nameOfBoxInBoxAct = findViewById(R.id.nameOfBoxInBoxAct);
 
         setText();
-        startFindUsersInBox(idOfCurrentBox);
+        findUsersInBox(idOfCurrentBox);
 
     }
    void setText(){
@@ -103,7 +103,7 @@ FirebaseFirestore db = FirebaseFirestore.getInstance();
         }
     }
 //Starter
-    public void startFindUsersInBox(String idOfBox){
+    public void findUsersInBox(String idOfBox){
         db.collection("Boxes").document(idOfBox).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {

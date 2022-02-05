@@ -11,7 +11,7 @@ public class RequestToFriends {
 FirebaseFirestore db = FirebaseFirestore.getInstance();
     public void allowAddToFriends(String uId, String frId){
         moveToFriends(uId, frId);
-        delUserFromFriendsRequest(uId, frId);
+        deleteUserFromFriendsRequest(uId, frId);
     }
     void moveToFriends(String uId, String frId){
         String [] currentUser = new String[1];
@@ -25,7 +25,7 @@ FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("GoogleUsers").document(uId).set(currentUserHashMap,  SetOptions.merge());
         db.collection("GoogleUsers").document(frId).set(friendUserHashMap,  SetOptions.merge());
     }
-    public void delUserFromFriendsRequest(String uId, String frId){
+    public void deleteUserFromFriendsRequest(String uId, String frId){
         HashMap<String,Object> hashMap = new HashMap<>();
         hashMap.put("AskToFriends", FieldValue.arrayRemove(frId) );
         db.collection("GoogleUsers").document(uId).update(hashMap);

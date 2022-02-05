@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         PushUserToFirebase pushUserToFirebase = new PushUserToFirebase();
-        pushUserToFirebase.starter();
+        pushUserToFirebase.findUser();
     }
 
     @Override

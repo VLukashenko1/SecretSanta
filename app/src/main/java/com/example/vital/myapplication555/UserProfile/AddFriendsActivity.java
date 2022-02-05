@@ -139,7 +139,6 @@ public class AddFriendsActivity extends AppCompatActivity {
         if (text.equals("Користувача з таким e-mail не знайдено") ||
                 text.equals("Користувача не знайдено") ||
                 text.equals("Заповніть поле e-mail для пошуку"))  {
-            Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
             resultTextView.setText("Користувача не знайдено");
             resultTextView.setVisibility(View.VISIBLE);
             return;

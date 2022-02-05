@@ -37,4 +37,5 @@
     <string name="imagetonmyprofile">ImagetOnMyProfile</string>
     <string name="yourFriends">Ваші друзі:</string>
     <string name="addfriendtoboxbutton">addFriendToBoxButton</string>
+    <string name="nickname2">NickName: Відсутній</string>
 </resources>

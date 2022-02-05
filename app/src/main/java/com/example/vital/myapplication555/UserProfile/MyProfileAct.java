@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.vital.myapplication555.InBoxActivity;
 import com.example.vital.myapplication555.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,6 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class MyProfileAct extends AppCompatActivity {
     FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -52,7 +52,7 @@ public class MyProfileAct extends AppCompatActivity {
             @Override
             public boolean onLongClick(View view) {
                 if(userEmail.getText() != null){
-                    setClipboard(MyProfileAct.this, auth.getCurrentUser().getEmail());
+                    setClipboard(MyProfileAct.this, Objects.requireNonNull(auth.getCurrentUser()).getEmail());
                     userEmail.setText("Скопійовано");
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
@@ -88,21 +88,18 @@ public class MyProfileAct extends AppCompatActivity {
         });
 //
         buildUserInfo();
-        findUserNick();
+        findUserNickName();
 
     }
-    void findUserNick(){
+    void findUserNickName(){
         db.collection("GoogleUsers").document(userId).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.getData().get("NickName") == null){
-                            fillUserProfile();
-                        }
-                        else if(documentSnapshot.getData().get("NickName") != null){
+                        if(documentSnapshot.getData().get("NickName") != null){
                             setNickName(documentSnapshot.getData().get("NickName").toString());
-                            fillUserProfile();
                         }
+                        fillUserProfile();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -120,26 +117,21 @@ public class MyProfileAct extends AppCompatActivity {
         userName = auth.getCurrentUser().getDisplayName();
         userId = auth.getCurrentUser().getUid();
         email = auth.getCurrentUser().getEmail();
-        nickName = null;
+        nickName = "";
     }
     void fillUserProfile(){
         //Встановлення фото
         Glide.with(MyProfileAct.this).load(auth.getCurrentUser().getPhotoUrl()).into(userPhotoInMyProfile);
         userPhotoInMyProfile.setScaleType(ImageView.ScaleType.FIT_CENTER);
         //
-        String nick = nickName;
-        if (nickName == null){
-            nick = "відсутній";
-        }else if (nickName != null){
-            nick = nickName;
+       if(!nickName.isEmpty()){
+            usernameInMyProfile.setText(userName);
+            userEmail.setText("E-mail: " + email);
+            nickNameProfile.setText("Nick: " + nickName);
         }
-        usernameInMyProfile.setText(userName);
-        userEmail.setText("E-mail: " + email);
-        nickNameProfile.setText("Nick: " + nick);
     }
     private void setClipboard(Context context, String text) {
         if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
-
             android.text.ClipboardManager clipboard = (android.text.ClipboardManager)
             context.getSystemService(Context.CLIPBOARD_SERVICE);
             clipboard.setText(text);
@@ -158,29 +150,30 @@ public class MyProfileAct extends AppCompatActivity {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("NickName", inputNickName.getText().toString());
 
-        findNickNameRepeat(hashMap);
+        getDocWithNickName(hashMap);
     }
-    void findNickNameRepeat(HashMap hashMap){
+    void getDocWithNickName(HashMap hashMap){
         db.collection("GoogleUsers")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                if (document.getData().get("NickName") != null
-                                    && document.getData().get("NickName").toString().equals(hashMap.get("NickName"))){
-                                        makeText("NickName зайнято");
-                                        inputNickName.setText(null);
-                                        return;
-                                    }
-                            }
-                            setUserNickName(hashMap);
-                        } else {
-
+                            findRepeatedNickName(hashMap, task);
                         }
                     }
                 });
+    }
+    void findRepeatedNickName(HashMap hashMap, Task<QuerySnapshot> task){
+        for (QueryDocumentSnapshot document : task.getResult()) {
+            Object nick = document.getData().get("NickName");
+            if (nick != null && nick.toString().equals(hashMap.get("NickName"))){
+                makeText("NickName зайнято");
+                inputNickName.setText("");
+                return;
+            }
+        }
+        setUserNickName(hashMap);
     }
     void setUserNickName(HashMap hashMap){
         db.collection("GoogleUsers").document(userId).set(hashMap, SetOptions.merge());

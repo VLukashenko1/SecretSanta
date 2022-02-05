@@ -14,18 +14,12 @@ public class PushUserToFirebase {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
-    public void starter(){
-        findUsr();
-    }
-    void findUsr(){
+
+   public void findUser(){
         db.collection("GoogleUsers").document(auth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.getData() != null){
-                    //createUserMap();
-                    return;
-                }
-                else if (documentSnapshot.getData() == null){
+                if (documentSnapshot.getData() == null){
                     createUserMap();
                 }
 
@@ -33,7 +27,7 @@ public class PushUserToFirebase {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                //createUserMap();
+
             }
         });
 
