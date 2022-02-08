@@ -1,16 +1,27 @@
 package com.example.vital.myapplication555.Models;
 
+import com.example.vital.myapplication555.WorkWithDB.DbHelper;
+import com.google.firebase.firestore.DocumentSnapshot;
+
 import java.net.URL;
 import java.util.HashMap;
 
 public class UserModel {
+    DbHelper dbHelper = new DbHelper();
+
     String id;
     String displayName, email, nickName;
     String askToFriends[];
     String friends[];
     URL PhotoUrl;
-    public UserModel(HashMap<String, Object> user){
-
+    public UserModel(DocumentSnapshot document){
+        this.id = document.getId();
+        this.askToFriends = (String[]) document.getData().get(dbHelper.asktofriends);
+        this.displayName = document.getData().get(dbHelper.displayname).toString();
+        this.email = document.getData().get(dbHelper.email).toString();
+        this.friends = (String[]) document.getData().get(dbHelper.friends);
+        this.nickName = document.getData().get(dbHelper.nickname).toString();
+        this.PhotoUrl = (URL)document.getData().get(dbHelper.photourl);
     }
 
     public UserModel(String id, String displayName, String email, String nickName,
