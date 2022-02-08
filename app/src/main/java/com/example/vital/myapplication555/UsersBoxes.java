@@ -26,6 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class UsersBoxes extends Fragment {
 
@@ -64,10 +65,10 @@ public class UsersBoxes extends Fragment {
     }
     void findUserBOxes(){
         showUserInfo();//show  Name & Photo
-        showBoxCreatedByCurrentUser(); // make list where user included
+        getUsersInBox(); // make a list in which the user is included or created
     }
     void showUserInfo(){
-        String userName = auth.getCurrentUser().getDisplayName().toString();
+        String userName = Objects.requireNonNull(auth.getCurrentUser()).getDisplayName();
         if (userName != null) {
             binding.textviewFirst.setText(userName);
         }
@@ -80,7 +81,7 @@ public class UsersBoxes extends Fragment {
     static HashMap<Integer, String> boxId = new HashMap<>();
 
 
-    void showBoxCreatedByCurrentUser(){
+    void getUsersInBox(){
         db.collection("Boxes")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -95,7 +96,7 @@ public class UsersBoxes extends Fragment {
                                     a++;
                                 }
                                 if(document.getData().get("ListOfUsers") != null){
-                                    if (showBoxWhereUserIncluded(document)){
+                                    if (isUserIncluded(document)){
                                         boxName.put(a, document.getData().get("NameOfBox").toString());
                                         boxId.put(a, document.getId());
                                         a++;
@@ -111,21 +112,20 @@ public class UsersBoxes extends Fragment {
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                makeToast(e.getMessage().toString());
+                makeToast(e.getMessage());
             }
         });
     }
-    boolean showBoxWhereUserIncluded(QueryDocumentSnapshot documentSnapshot){
+    boolean isUserIncluded(QueryDocumentSnapshot documentSnapshot){
         String uId = auth.getCurrentUser().getUid();
                 if(Arrays.asList(documentSnapshot.getData().get("ListOfUsers")).toString().contains(uId)){
-                    System.out.println("TEST: " + Arrays.asList(documentSnapshot.getData().get("ListOfUsers")).toString().isEmpty());
                     return true;
                 }
         return false;
     }
     void hashMapToStringArray(HashMap<Integer, String> boxName, HashMap<Integer, String> boxId){
         if (boxId.size() != 0){
-            String boxes[] = new String[boxId.size()];
+            String []boxes = new String[boxId.size()];
             for (int i = 0; i < boxId.size(); i++) {
                 boxes[i] = boxName.get(i);
             }
@@ -135,6 +135,7 @@ public class UsersBoxes extends Fragment {
         }
 
     }
+
     void makeListView(HashMap<Integer, String> boxName, HashMap<Integer, String> boxId, String[] names){
         Context context = getContext();
         if (names == null){

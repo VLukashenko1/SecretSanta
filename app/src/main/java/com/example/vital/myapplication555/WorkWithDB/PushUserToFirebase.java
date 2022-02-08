@@ -16,6 +16,7 @@ public class PushUserToFirebase {
 
 
    public void findUser(){
+       DbHelper dbHelper = new DbHelper();
         db.collection("GoogleUsers").document(auth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.vital.myapplication555.UserProfile.AddFriendsActivity;
-import com.example.vital.myapplication555.UserProfile.RequestToFriendsAct;
+import com.example.vital.myapplication555.UserProfile.FriendsAct;
 import com.example.vital.myapplication555.UserProfile.MyProfileAct;
 import com.example.vital.myapplication555.WorkWithDB.PushUserToFirebase;
 import com.google.android.material.snackbar.Snackbar;
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.myFriends){
-            Intent intent = new Intent(this, RequestToFriendsAct.class);
+            Intent intent = new Intent(this, FriendsAct.class);
             startActivity(intent);
             return true;
         }

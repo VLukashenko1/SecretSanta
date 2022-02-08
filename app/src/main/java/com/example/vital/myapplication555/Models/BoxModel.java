@@ -1,9 +1,9 @@
-package com.example.vital.myapplication555.model;
+package com.example.vital.myapplication555.Models;
 
 import java.util.HashMap;
 import java.util.List;
 
-class BoxModel {
+public class BoxModel {
     String boxName, boxId, idOfCreator;
     String []connectedUsers;
     HashMap<String, String> uIdAndHisMessage;

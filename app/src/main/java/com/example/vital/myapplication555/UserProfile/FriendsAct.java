@@ -31,7 +31,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.List;
 import java.util.Objects;
 
-public class RequestToFriendsAct extends AppCompatActivity {
+public class FriendsAct extends AppCompatActivity {
 FirebaseAuth auth = FirebaseAuth.getInstance();
 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -42,7 +42,7 @@ String isFromInBox, idOfBox;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_friend);
+        setContentView(R.layout.activity_my_friends);
 
         isFromInBox = getIntent().getStringExtra("Прийшло");
         idOfBox = getIntent().getStringExtra("IdOfBox");
@@ -54,6 +54,7 @@ String isFromInBox, idOfBox;
 
         findFriendRequest();
         findFriendsId();
+
     }
 // знайти та відобразити запити до друзів
     public void setFriendsRequestID(List<String> friendsRequestIdList) {
@@ -134,7 +135,7 @@ String isFromInBox, idOfBox;
         if (friendRequestNames == null){
             return;
         }
-        ArrayAdapter adapter = new ArrayAdapter<String>(RequestToFriendsAct.this, android.R.layout.simple_list_item_1, friendRequestNames);
+        ArrayAdapter adapter = new ArrayAdapter<String>(FriendsAct.this, android.R.layout.simple_list_item_1, friendRequestNames);
         friendsRequestList.setAdapter(adapter);
         registerForContextMenu(friendsRequestList);
         friendsRequestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -222,7 +223,7 @@ String isFromInBox, idOfBox;
         if (friendsNamesArr == null){
             return;
         }
-        ArrayAdapter adapter = new ArrayAdapter<String>(RequestToFriendsAct.this, android.R.layout.simple_list_item_1, friendsNamesArr);
+        ArrayAdapter adapter = new ArrayAdapter<String>(FriendsAct.this, android.R.layout.simple_list_item_1, friendsNamesArr);
         friendsList.setAdapter(adapter);
         registerForContextMenu(friendsList);
         if (isFromInBox != null && idOfBox != null && isFromInBox.equals("InBoxActivity")){
@@ -232,7 +233,7 @@ String isFromInBox, idOfBox;
                    CreateBox createBox = new CreateBox();
                    createBox.makeHashMapForConnect(idOfBox, friendsIdArr[i]);
 
-                   Intent intent = new Intent(RequestToFriendsAct.this, InBoxActivity.class);
+                   Intent intent = new Intent(FriendsAct.this, InBoxActivity.class);
                    startActivity(intent);
                     }
                 });
@@ -281,7 +282,8 @@ String isFromInBox, idOfBox;
     }
     void refresh(){
         finish();
-        Intent intent = new Intent(RequestToFriendsAct.this, RequestToFriendsAct.class);
+        Intent intent = new Intent(FriendsAct.this, FriendsAct.class);
         startActivity(intent);
     }
+
 }

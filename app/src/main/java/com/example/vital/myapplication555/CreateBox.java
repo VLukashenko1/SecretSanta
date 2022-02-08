@@ -63,7 +63,7 @@ public TextInputEditText nameOfBoxInput, connectIdInput;
     }
     void createBox(String nameOfBox){
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("NameOfCreator", auth.getCurrentUser().getDisplayName().toString());
+        //hashMap.put("NameOfCreator", auth.getCurrentUser().getDisplayName());
         hashMap.put("IdOfCreator", auth.getCurrentUser().getUid());
         hashMap.put("NameOfBox", nameOfBox);
         hashMap.put("ListOfUsers", Arrays.asList());

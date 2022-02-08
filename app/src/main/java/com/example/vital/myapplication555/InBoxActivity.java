@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.vital.myapplication555.UserProfile.RequestToFriendsAct;
+import com.example.vital.myapplication555.UserProfile.FriendsAct;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,7 +45,7 @@ public class InBoxActivity extends AppCompatActivity {
         addFriendToBoxButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(InBoxActivity.this, RequestToFriendsAct.class);
+                Intent intent = new Intent(InBoxActivity.this, FriendsAct.class);
                 intent.putExtra("Прийшло", "InBoxActivity");
                 intent.putExtra("IdOfBox", idOfCurrentBox);
                 intent.putExtra("NameOfBox", nameOfCurrentBox);

@@ -13,7 +13,7 @@
             android:name=".UserProfile.MyProfileAct"
             android:exported="false" />
         <activity
-            android:name=".UserProfile.RequestToFriendsAct"
+            android:name=".UserProfile.FriendsAct"
             android:exported="false" />
         <activity
             android:name=".UserProfile.AddFriendsActivity"
