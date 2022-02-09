@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.vital.myapplication555.CreateBox;
 import com.example.vital.myapplication555.InBoxActivity;
 import com.example.vital.myapplication555.R;
+import com.example.vital.myapplication555.WorkWithDB.DbHelper;
 import com.example.vital.myapplication555.WorkWithDB.RequestToFriends;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -153,6 +154,9 @@ String isFromInBox, idOfBox;
     String[] friendsIdArr;
 
     void setElementToFriendsIdArr(String data){
+        if (data == null){
+            return;
+        }
         if (friendsIdArr == null){
             friendsIdArr = new String[1];
             friendsIdArr[0] = data;
@@ -165,7 +169,6 @@ String isFromInBox, idOfBox;
     }
     void setElementToFriendsNamesArr(String data, int id){
         this.friendsNamesArr[id] = data;
-        System.out.println("Кладу");
     }
 
     void findFriendsId(){
@@ -180,17 +183,15 @@ String isFromInBox, idOfBox;
         });
     }
     void pushToIdArr(DocumentSnapshot documentSnapshot){
-        if(documentSnapshot.get("Friends") != null &&
-                Objects.requireNonNull(documentSnapshot.get("Friends")).toString().isEmpty()){
+        if(documentSnapshot.get("Friends") != null && Objects.requireNonNull(documentSnapshot.get("Friends")).toString().isEmpty() ||
+            documentSnapshot.get("Friends") == null){
             yourFriendsTextVw.setText("Ваші друзі: \nДрузів ще не додано");
             return;
         }
         List<String> friendsIdList = (List<String>) documentSnapshot.get("Friends");
-        if (friendsIdList != null){
             for (int i = 0; i < friendsIdList.size(); i++) {
                 setElementToFriendsIdArr(friendsIdList.get(i));
             }
-        }
         findFriendNames();
     }
     void findFriendNames(){

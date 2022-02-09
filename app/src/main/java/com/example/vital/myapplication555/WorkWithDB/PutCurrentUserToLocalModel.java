@@ -8,11 +8,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import java.net.MalformedURLException;
 
 public class PutCurrentUserToLocalModel {
-
     UserModel um;
-
     DbHelper dbHelp = new DbHelper();
-    public void work(){
+
+    public UserModel work(){
         dbHelp.currentUserRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -23,7 +22,7 @@ public class PutCurrentUserToLocalModel {
                 }
             }
         });
+        return um;
     }
-
 
 }

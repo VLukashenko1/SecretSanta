@@ -66,8 +66,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        //
         PutCurrentUserToLocalModel put = new PutCurrentUserToLocalModel();
-
+        if (put.work() == null){
+            System.out.println("MISTAKES");
+        }
+        //
     }
 
     @Override
