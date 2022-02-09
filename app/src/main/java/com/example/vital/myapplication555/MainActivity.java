@@ -3,10 +3,12 @@ package com.example.vital.myapplication555;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.vital.myapplication555.Models.UserModel;
 import com.example.vital.myapplication555.UserProfile.AddFriendsActivity;
 import com.example.vital.myapplication555.UserProfile.FriendsAct;
 import com.example.vital.myapplication555.UserProfile.MyProfileAct;
 import com.example.vital.myapplication555.WorkWithDB.PushUserToFirebase;
+import com.example.vital.myapplication555.WorkWithDB.PutCurrentUserToLocalModel;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,9 +21,12 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.vital.myapplication555.databinding.ActivityMainBinding;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.net.MalformedURLException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,6 +61,13 @@ public class MainActivity extends AppCompatActivity {
 
         PushUserToFirebase pushUserToFirebase = new PushUserToFirebase();
         pushUserToFirebase.findUser();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        PutCurrentUserToLocalModel put = new PutCurrentUserToLocalModel();
+
     }
 
     @Override

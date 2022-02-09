@@ -3,8 +3,9 @@ package com.example.vital.myapplication555.Models;
 import com.example.vital.myapplication555.WorkWithDB.DbHelper;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
+import java.util.List;
 
 public class UserModel {
     DbHelper dbHelper = new DbHelper();
@@ -14,18 +15,29 @@ public class UserModel {
     String askToFriends[];
     String friends[];
     URL PhotoUrl;
-    public UserModel(DocumentSnapshot document){
+
+    public UserModel(DocumentSnapshot document) throws MalformedURLException {
         this.id = document.getId();
-        this.askToFriends = (String[]) document.getData().get(dbHelper.asktofriends);
-        this.displayName = document.getData().get(dbHelper.displayname).toString();
-        this.email = document.getData().get(dbHelper.email).toString();
-        this.friends = (String[]) document.getData().get(dbHelper.friends);
-        this.nickName = document.getData().get(dbHelper.nickname).toString();
-        this.PhotoUrl = (URL)document.getData().get(dbHelper.photourl);
+        this.displayName = document.getData().get(dbHelper.DISPLAY_NAME).toString();
+        this.email = document.getData().get(dbHelper.EMAIL).toString();
+        this.nickName = document.getData().get(dbHelper.NICKNAME).toString();
+
+        this.PhotoUrl = new URL(document.getData().get(dbHelper.PHOTO_URL).toString());
+
+        List<String> askFriendsList = (List<String>) document.get(dbHelper.ASK_TO_FRIENDS);
+        this.askToFriends = askFriendsList.toArray(new String[0]);
+
+        List<String> friendsIdList = (List<String>) document.get(dbHelper.FRIENDS);
+        this.friends = friendsIdList.toArray(new String[0]);
+    }
+    public void tester(){
+        System.out.println("TESTER: id " + id + " displayname " + displayName +
+                " email " + email + " NickName " + nickName);
+        System.out.println("askToFriend " + askToFriends.length);
+        System.out.println("Firends " + friends.length);
     }
 
-    public UserModel(String id, String displayName, String email, String nickName,
-                     String[] askToFriends, String[] friends, URL photoUrl) {
+    public UserModel(String id, String displayName, String email, String nickName,String[] askToFriends, String[] friends, URL photoUrl) {
         this.id = id;
         this.displayName = displayName;
         this.email = email;
