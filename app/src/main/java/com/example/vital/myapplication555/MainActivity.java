@@ -1,14 +1,18 @@
 package com.example.vital.myapplication555;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.vital.myapplication555.Models.CurrentUserFiller;
 import com.example.vital.myapplication555.Models.UserModel;
+import com.example.vital.myapplication555.Models.UserModel2;
 import com.example.vital.myapplication555.UserProfile.AddFriendsActivity;
 import com.example.vital.myapplication555.UserProfile.FriendsAct;
 import com.example.vital.myapplication555.UserProfile.MyProfileAct;
 import com.example.vital.myapplication555.WorkWithDB.PushUserToFirebase;
 import com.example.vital.myapplication555.WorkWithDB.PutCurrentUserToLocalModel;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,12 +25,19 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.vital.myapplication555.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.net.MalformedURLException;
+import java.sql.SQLOutput;
+import java.util.Objects;
+
+import static java.util.Objects.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,16 +73,30 @@ public class MainActivity extends AppCompatActivity {
         PushUserToFirebase pushUserToFirebase = new PushUserToFirebase();
         pushUserToFirebase.findUser();
     }
+    private static MainActivity instance;
 
+    public static Context getContext(){
+        return instance;
+    }
     @Override
     protected void onStart() {
         super.onStart();
-        //
-        PutCurrentUserToLocalModel put = new PutCurrentUserToLocalModel();
-        if (put.work() == null){
-            System.out.println("MISTAKES");
-        }
-        //
+        instance = this;
+
+        //PutCurrentUserToLocalModel put = new PutCurrentUserToLocalModel();
+        //put.setDefaultData();
+
+        CurrentUserFiller cuf = new CurrentUserFiller();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        cuf.fill(auth.getCurrentUser().getUid(), "MainActivity");
+
+
+    }
+    public void tempUserSaver(UserModel2 um2){
+        System.out.println("UM2.toString start");
+        System.out.println(um2.toString());
+        System.out.println("\nFriend: " + um2.getFriendsList().get(0));
+        System.out.println("UM2.toString stop");
     }
 
     @Override

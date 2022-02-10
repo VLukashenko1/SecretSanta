@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.vital.myapplication555.WorkWithDB.UsersInBoxUSELESS;
 import com.example.vital.myapplication555.databinding.FragmentSecondBinding;
 
 public class InBox extends Fragment {

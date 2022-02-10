@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.vital.myapplication555.Models.CurrentUserFiller;
 import com.example.vital.myapplication555.databinding.FragmentFirstBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -62,6 +63,8 @@ public class UsersBoxes extends Fragment {
         super.onStart();
 
         findUserBOxes();
+        CurrentUserFiller cuf = new CurrentUserFiller();
+        cuf.fill(auth.getCurrentUser().getUid(),"UserBoxes");
     }
     void findUserBOxes(){
         showUserInfo();//show  Name & Photo
@@ -79,7 +82,6 @@ public class UsersBoxes extends Fragment {
 
     static HashMap<Integer, String> boxName = new HashMap<>();
     static HashMap<Integer, String> boxId = new HashMap<>();
-
 
     void getUsersInBox(){
         db.collection("Boxes")

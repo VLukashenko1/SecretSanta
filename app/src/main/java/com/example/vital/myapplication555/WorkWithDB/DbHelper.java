@@ -9,8 +9,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DbHelper {
     //collections
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirebaseAuth auth = FirebaseAuth.getInstance();
+    public static final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public static final FirebaseAuth auth = FirebaseAuth.getInstance();
 
     public CollectionReference usersCollectionRef = db.collection("GoogleUsers");
     public CollectionReference boxesCollectionRef = db.collection("Boxes");

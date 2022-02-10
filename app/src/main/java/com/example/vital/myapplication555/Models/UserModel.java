@@ -1,10 +1,15 @@
 package com.example.vital.myapplication555.Models;
 
 import com.example.vital.myapplication555.WorkWithDB.DbHelper;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class UserModel {
@@ -12,8 +17,11 @@ public class UserModel {
 
     String id;
     String displayName, email, nickName;
-    String askToFriends[];
-    String friends[];
+    String askToFriends[];//dell
+    String friends[];//dell++
+    public HashMap<Integer, UserModel> hashMapWithFriends = new HashMap<>();
+    public List<UserModel> friendsList = new ArrayList<UserModel>();
+    public List<BoxModel> boxModels;
     URL PhotoUrl;
 
     public UserModel(DocumentSnapshot document) throws MalformedURLException {
@@ -21,8 +29,8 @@ public class UserModel {
         this.displayName = document.getData().get(dbHelper.DISPLAY_NAME).toString();
         this.email = document.getData().get(dbHelper.EMAIL).toString();
         this.nickName = document.getData().get(dbHelper.NICKNAME).toString();
-
         this.PhotoUrl = new URL(document.getData().get(dbHelper.PHOTO_URL).toString());
+        this.friendsList = getFriends(document);
 
         List<String> askFriendsList = (List<String>) document.get(dbHelper.ASK_TO_FRIENDS);
         this.askToFriends = askFriendsList.toArray(new String[0]);
@@ -30,22 +38,53 @@ public class UserModel {
         List<String> friendsIdList = (List<String>) document.get(dbHelper.FRIENDS);
         this.friends = friendsIdList.toArray(new String[0]);
     }
-    public void tester(){
-        System.out.println("TESTER: id " + id + " displayname " + displayName +
-                " email " + email + " NickName " + nickName);
-        System.out.println("askToFriend " + askToFriends.length);
-        System.out.println("Firends " + friends.length);
+    public UserModel(DocumentSnapshot document, boolean isWithFriends ) throws MalformedURLException {
+        this.id = document.getId();
+        this.displayName = document.getData().get(dbHelper.DISPLAY_NAME).toString();
+        this.email = document.getData().get(dbHelper.EMAIL).toString();
+        this.nickName = document.getData().get(dbHelper.NICKNAME).toString();
+        this.PhotoUrl = new URL(document.getData().get(dbHelper.PHOTO_URL).toString());
+
     }
 
-    public UserModel(String id, String displayName, String email, String nickName,String[] askToFriends, String[] friends, URL photoUrl) {
-        this.id = id;
-        this.displayName = displayName;
-        this.email = email;
-        this.nickName = nickName;
-        this.askToFriends = askToFriends;
-        this.friends = friends;
-        PhotoUrl = photoUrl;
+    private List<UserModel> getFriends(DocumentSnapshot document) {
+        List<UserModel> tempFriendsList = new ArrayList<UserModel>();
+        List<String> friendsIdList = (List<String>) document.get(dbHelper.FRIENDS);
+
+        for (String friendId:friendsIdList){
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("GoogleUsers").document(friendId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    try {
+                        UserModel tempModel = new UserModel(documentSnapshot,false);
+                        tempFriendsList.add(tempModel);
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+        return tempFriendsList;
     }
+
+
+    @Override
+    public String toString() {
+        return "UserModel{" +
+                "dbHelper=" + dbHelper +
+                ", id='" + id + '\'' +
+                ", displayName='" + displayName + '\'' +
+                ", email='" + email + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", askToFriends=" + Arrays.toString(askToFriends) +
+                ", friends=" + Arrays.toString(friends) +
+                ", hashMapWithFriends=" + hashMapWithFriends +
+                ", friendsList=" + friendsList +
+                ", PhotoUrl=" + PhotoUrl +
+                '}';
+    }
+
 
     public String getId() {
         return id;
@@ -53,54 +92,6 @@ public class UserModel {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public String[] getAskToFriends() {
-        return askToFriends;
-    }
-
-    public void setAskToFriends(String[] askToFriends) {
-        this.askToFriends = askToFriends;
-    }
-
-    public String[] getFriends() {
-        return friends;
-    }
-
-    public void setFriends(String[] friends) {
-        this.friends = friends;
-    }
-
-    public URL getPhotoUrl() {
-        return PhotoUrl;
-    }
-
-    public void setPhotoUrl(URL photoUrl) {
-        PhotoUrl = photoUrl;
     }
 
 }
