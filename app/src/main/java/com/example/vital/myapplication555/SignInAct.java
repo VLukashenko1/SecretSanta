@@ -2,6 +2,7 @@ package com.example.vital.myapplication555;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import io.grpc.Server;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,18 +10,27 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.vital.myapplication555.Models.CurrentUserFiller;
+import com.example.vital.myapplication555.Models.UserModel;
+import com.example.vital.myapplication555.WorkWithDB.PushUserToFirebase;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.net.MalformedURLException;
+import java.util.concurrent.CountDownLatch;
 
 public class SignInAct extends AppCompatActivity {
     private static final String TAG = "GoogleActivity";
@@ -105,6 +115,13 @@ public class SignInAct extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null){
+            // Створити папку користувача, якщо ще немає на FirebaseFirestore
+            PushUserToFirebase pushUserToFirebase = new PushUserToFirebase();
+            pushUserToFirebase.findUser();
+            // Зберегти користувача локально (UserModel2)
+            CurrentUserFiller cuf = new CurrentUserFiller();
+            cuf.fill(user.getUid());
+            // Перейти на головну сторінку
             Intent intent = new Intent(SignInAct.this, MainActivity.class);
             startActivity(intent);
         }
@@ -112,7 +129,5 @@ public class SignInAct extends AppCompatActivity {
             return;
         }
     }
-
-
 
 }

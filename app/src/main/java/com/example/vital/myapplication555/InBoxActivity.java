@@ -33,6 +33,7 @@ public class InBoxActivity extends AppCompatActivity {
     String nameOfCurrentBox;
     String idOfCurrentBox;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,12 +65,15 @@ public class InBoxActivity extends AppCompatActivity {
         findUsersInBox(idOfCurrentBox);
 
     }
+
+
    void setText(){
         nameOfBoxInBoxAct.setText(nameOfCurrentBox);
     }
    public void makeList (HashMap<Integer,String> ids, String []userNames){
         ArrayAdapter adapter = new ArrayAdapter<>(InBoxActivity.this, android.R.layout.simple_list_item_1, userNames);
         listViewOnActBox.setAdapter(adapter);
+        listViewOnActBox.setDividerHeight(10);
         listViewOnActBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -104,6 +108,9 @@ FirebaseFirestore db = FirebaseFirestore.getInstance();
     }
 //Starter
     public void findUsersInBox(String idOfBox){
+        if (idOfBox == null){
+            return;
+        }
         db.collection("Boxes").document(idOfBox).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {

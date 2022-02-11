@@ -38,4 +38,6 @@
     <string name="yourFriends">Ваші друзі:</string>
     <string name="addfriendtoboxbutton">addFriendToBoxButton</string>
     <string name="nickname2">NickName: Відсутній</string>
+    <string name="someact">SOmeAct</string>
+    <string name="shapka">Shapka</string>
 </resources>
